@@ -24,6 +24,7 @@ import {
   TOOL_OVERLAY_VERTICAL_OFFSET,
 } from '../../constants.js';
 import type { SubagentCharacter } from '../../hooks/useExtensionMessages.js';
+import { koStatus } from '../../i18n/koStatus.js';
 import type { OfficeState } from '../engine/officeState.js';
 import { overlayProjection } from '../projection.js';
 import { getCachedSprite } from '../sprites/spriteCache.js';
@@ -35,7 +36,7 @@ import { CharacterState } from '../types.js';
 // shows ONLY the checkmark (the label falls through to its normal idle text);
 // going idle waiting on the user (Notification(idle_prompt)) additionally
 // surfaces this label. Driven by Character.waitingAwaitingInput.
-const WAITING_INPUT_ACTIVITY_TEXT = 'Waiting for input';
+const WAITING_INPUT_ACTIVITY_TEXT = '입력 대기 중';
 
 interface ToolOverlayProps {
   officeState: OfficeState;
@@ -58,7 +59,7 @@ function getActivityText(
   bubbleType: 'permission' | 'waiting' | null,
   waitingAwaitingInput: boolean,
 ): string {
-  if (bubbleType === 'permission') return 'Needs approval';
+  if (bubbleType === 'permission') return '승인 필요';
   // Only the idle case ("Waiting for input") gets a dedicated label. A finished
   // turn (Stop, waitingAwaitingInput=false) falls through so the checkmark alone
   // signals "done", same as the original behavior.
@@ -69,7 +70,7 @@ function getActivityText(
     // Find the latest non-done tool
     const activeTool = [...tools].reverse().find((t) => !t.done);
     if (activeTool) {
-      if (activeTool.permissionWait) return 'Needs approval';
+      if (activeTool.permissionWait) return '승인 필요';
       return activeTool.status;
     }
     // All tools done but agent still active (mid-turn) — keep showing last tool status
@@ -79,7 +80,7 @@ function getActivityText(
     }
   }
 
-  return 'Idle';
+  return '쉬는 중';
 }
 
 function getFuelColor(ratio: number): string {
@@ -239,7 +240,7 @@ export function ToolOverlay({
           activityText = WAITING_INPUT_ACTIVITY_TEXT;
         } else if (isSub) {
           if (subHasPermission) {
-            activityText = 'Needs approval';
+            activityText = '승인 필요';
           } else {
             // Hover shows the subtask title; SELECTING the sub reveals its live
             // tool activity (watched sub-agents stream it via subagentToolStart).
@@ -247,7 +248,7 @@ export function ToolOverlay({
             const rows = sub ? subagentTools[sub.parentAgentId]?.[sub.parentToolId] : undefined;
             const activeRow =
               isSelected && rows ? [...rows].reverse().find((t) => !t.done) : undefined;
-            activityText = activeRow?.status ?? (sub?.label || 'Subtask');
+            activityText = activeRow?.status ?? (sub?.label || '하위 작업');
           }
         } else {
           activityText = getActivityText(
@@ -325,7 +326,7 @@ export function ToolOverlay({
                       fontStyle: isSub ? 'italic' : undefined,
                     }}
                   >
-                    {activityText}
+                    {koStatus(activityText)}
                   </span>
                   {ch.directoryName && (
                     <span className="text-2xs leading-none overflow-hidden text-ellipsis block">
@@ -341,7 +342,7 @@ export function ToolOverlay({
                       e.stopPropagation();
                       onCloseAgent(id);
                     }}
-                    title="Close agent"
+                    title="에이전트 닫기"
                     className="ml-2 shrink-0 leading-none"
                   >
                     ×
@@ -356,7 +357,7 @@ export function ToolOverlay({
                     background: CONTEXT_GAUGE_BG,
                     marginTop: 2,
                   }}
-                  title={`${Math.round(contextRatio * 100)}% context used (${(ch.contextTokens / 1000).toFixed(0)}k of ${(ch.maxContextTokens / 1000).toFixed(0)}k tokens)`}
+                  title={`${Math.round(contextRatio * 100)}% 컨텍스트 사용 (${(ch.maxContextTokens / 1000).toFixed(0)}k 토큰 중 ${(ch.contextTokens / 1000).toFixed(0)}k)`}
                   data-testid="context-gauge"
                   data-context-pct={Math.round(contextRatio * 100)}
                 >

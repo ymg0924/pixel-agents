@@ -16,17 +16,16 @@ export function MigrationNotice({ onDismiss }: MigrationNoticeProps) {
       >
         <div className="text-5xl mb-12 text-accent">We owe you an apology!</div>
         <p className="text-xl m-0 mb-12">
-          We've just migrated to fully open-source assets, all built from scratch with love.
-          Unfortunately, this means your previous layout had to be reset.
+          모든 그림 자료를 직접 새로 만든 오픈소스 에셋으로 바꿨습니다. 그래서 아쉽게도 이전 배치는
+          초기화되었습니다.
         </p>
         <p className="text-xl m-0 mb-12">We're really sorry about that.</p>
         <p className="text-xl m-0 mb-12">
-          The good news? This was a one-time thing, and it paves the way for some genuinely exciting
-          updates ahead.
+          다행히 이번 한 번뿐이고, 앞으로 더 멋진 업데이트를 위한 준비입니다.
         </p>
         <p className="text-xl m-0 mb-20">Stay tuned, and thanks for using Pixel Agents!</p>
         <Button variant="accent" size="xl" onClick={onDismiss}>
-          Got it
+          확인
         </Button>
       </div>
     </div>

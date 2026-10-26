@@ -70,7 +70,7 @@ export function normalizeDirectoryPath(raw: string): string {
 export function validateDirectoryPath(raw: string): DirectorySaveResult {
   const trimmed = raw.trim();
   if (trimmed.length === 0) {
-    return { ok: false, reason: 'Enter a directory path.' };
+    return { ok: false, reason: '폴더 경로를 입력하세요.' };
   }
   const resolved = path.resolve(expandTilde(trimmed));
   let stats: fs.Stats;

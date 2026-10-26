@@ -56,7 +56,7 @@ export function AgentCard({
     <div
       className={`pointer-events-auto flex items-stretch gap-1 p-1 cursor-pointer border-2 shrink-0 ${CARD_VARIANT[variant]}`}
       onClick={() => onSelect(agentId)}
-      title={`Agent ${agentId}`}
+      title={`에이전트 ${agentId}`}
     >
       <CharacterMugShot palette={appearance.palette} hueShift={appearance.hueShift} />
       {/* Close on top, status dot at the bottom, both centred over the
@@ -70,7 +70,7 @@ export function AgentCard({
             e.stopPropagation();
             onClose(agentId);
           }}
-          title="Close agent"
+          title="에이전트 닫기"
           className={`leading-none ${showClose ? '' : 'invisible'}`}
         >
           ×

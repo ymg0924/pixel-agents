@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+import { koStatus } from '../i18n/koStatus.js';
 import type { OfficeState } from '../office/engine/officeState.js';
 import type { ToolActivity } from '../office/types.js';
 import { transport } from '../transport/index.js';
@@ -46,7 +47,7 @@ function ToolLine({ tool }: { tool: ToolActivity }) {
       className={`text-base flex items-center gap-5 ${tool.done ? 'opacity-50' : 'opacity-80'}`}
     >
       <ToolDot tool={tool} />
-      {tool.permissionWait && !tool.done ? 'Needs approval' : tool.status}
+      {tool.permissionWait && !tool.done ? '승인 필요' : koStatus(tool.status)}
     </span>
   );
 }
@@ -123,7 +124,7 @@ export function DebugView({
               transport.send({ type: 'closeAgent', id });
             }}
             className={`opacity-70 ${isSelected ? 'text-white' : ''}`}
-            title="Close agent"
+            title="에이전트 닫기"
           >
             ✕
           </Button>
@@ -147,7 +148,7 @@ export function DebugView({
               officeState.characters.get(id)?.waitingAwaitingInput && (
                 <span className="text-base opacity-85 flex items-center gap-5">
                   <span className="w-6 h-6 rounded-full inline-block shrink-0 bg-status-permission" />
-                  Waiting for input
+                  입력 대기 중
                 </span>
               )}
           </div>

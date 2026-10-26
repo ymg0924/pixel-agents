@@ -246,51 +246,51 @@ export function EditorToolbar({
           variant={isFurnitureActive ? 'active' : 'default'}
           size="md"
           onClick={() => onToolChange(EditTool.FURNITURE_PLACE)}
-          title="Place furniture"
+          title="가구 배치"
         >
-          Furniture
+          가구
         </Button>
         <Button
           variant={isFloorActive ? 'active' : 'default'}
           size="md"
           onClick={() => onToolChange(EditTool.TILE_PAINT)}
-          title="Paint floor tiles"
+          title="바닥 칠하기"
         >
-          Floor
+          바닥
         </Button>
         <Button
           variant={isWallActive ? 'active' : 'default'}
           size="md"
           onClick={() => onToolChange(EditTool.WALL_PAINT)}
-          title="Paint walls (click to toggle)"
+          title="벽 칠하기 (클릭으로 켜고 끄기)"
         >
-          Walls
+          벽
         </Button>
         <Button
           variant={isPetsActive ? 'active' : 'default'}
           size="md"
           onClick={() => onToolChange(EditTool.PETS)}
-          title="Place pets"
+          title="반려동물 배치"
         >
-          Pets
+          반려동물
         </Button>
         {areasAvailable && (
           <Button
             variant={isAreasActive ? 'active' : 'default'}
             size="md"
             onClick={() => onToolChange(EditTool.AREA_PAINT)}
-            title="Define folder-bound areas — agents spawn in their folder's area"
+            title="폴더별 구역 지정 — 에이전트가 자기 폴더 구역에 앉습니다"
           >
-            Areas
+            구역
           </Button>
         )}
         <Button
           variant={isEraseActive ? 'active' : 'default'}
           size="md"
           onClick={() => onToolChange(EditTool.ERASE)}
-          title="Erase tiles to void"
+          title="타일 지우기"
         >
-          Erase
+          지우개
         </Button>
       </div>
 
@@ -303,17 +303,17 @@ export function EditorToolbar({
               variant={activeTool === EditTool.EYEDROPPER ? 'active' : 'ghost'}
               size="sm"
               onClick={() => onToolChange(EditTool.EYEDROPPER)}
-              title="Copy floor pattern + color from existing tile"
+              title="기존 타일의 바닥 무늬와 색 가져오기"
             >
-              Copy
+              스포이트
             </Button>
             <Button
               variant={showColor ? 'active' : 'ghost'}
               size="sm"
               onClick={() => setShowColor((v) => !v)}
-              title="Adjust floor color"
+              title="바닥 색 조절"
             >
-              Color
+              색상
             </Button>
           </div>
 
@@ -326,7 +326,7 @@ export function EditorToolbar({
                 height={32}
                 selected={selectedTileType === patIdx}
                 onClick={() => onTileTypeChange(patIdx as TileTypeVal)}
-                title={`Floor ${patIdx}`}
+                title={`바닥 ${patIdx}`}
                 deps={[patIdx, floorColor]}
                 draw={(ctx, w, h) => {
                   if (!hasFloorSprites()) {
@@ -355,9 +355,9 @@ export function EditorToolbar({
               variant={showWallColor ? 'active' : 'default'}
               size="sm"
               onClick={() => setShowWallColor((v) => !v)}
-              title="Adjust wall color"
+              title="벽 색 조절"
             >
-              Color
+              색상
             </Button>
           </div>
 
@@ -371,7 +371,7 @@ export function EditorToolbar({
                   height={64}
                   selected={selectedWallSet === i}
                   onClick={() => onWallSetChange(i)}
-                  title={`Wall ${i + 1}`}
+                  title={`벽 ${i + 1}`}
                   deps={[i, wallColor]}
                   draw={(ctx, w, h) => {
                     const sprite = getWallSetPreviewSprite(i);
@@ -438,13 +438,14 @@ export function EditorToolbar({
         <div className="flex flex-col-reverse gap-4 pb-2">
           <AreaAddRow areas={areas} onAddArea={onAddArea} />
           <div className="text-xs text-text-muted px-4 leading-none">
-            Paint areas on the map, then assign workspace folders. Agents will sit in their folder's
-            area.
+            지도에 구역을 칠한 뒤 작업 폴더를 지정하세요. 에이전트가 자기 폴더의 구역에 앉습니다.
           </div>
           {/* Fixed 4-per-row grid; no overflow clip, or the upward Add-folder dropdown is cut off. */}
           <div className="grid grid-cols-[repeat(4,130px)] gap-4">
             {areas.length === 0 ? (
-              <span className="text-xs text-text-muted italic">No areas yet — add one above</span>
+              <span className="text-xs text-text-muted italic">
+                아직 구역이 없습니다 — 위에서 추가하세요
+              </span>
             ) : (
               areas.map((area) => (
                 <AreaCard
@@ -494,9 +495,9 @@ export function EditorToolbar({
                   setActiveCategory(CARPET_CATEGORY_ID);
                   onToolChange(EditTool.CARPET_PAINT);
                 }}
-                title="Paint carpets"
+                title="카펫 깔기"
               >
-                Carpet
+                카펫
               </Button>
             )}
             <div className="w-[1px] h-14 bg-white/15 mx-2 shrink-0" />
@@ -515,12 +516,10 @@ export function EditorToolbar({
                   : setShowFurnitureColor((v) => !v)
               }
               title={
-                activeCategory === CARPET_CATEGORY_ID
-                  ? 'Adjust carpet main + accent colors'
-                  : 'Adjust color for new furniture'
+                activeCategory === CARPET_CATEGORY_ID ? '카펫 주색·강조색 조절' : '새 가구 색 조절'
               }
             >
-              Color
+              색상
             </Button>
             {/* Copy — the eyedropper tools, named for what they do: take the
                 settings off something already placed. */}
@@ -535,18 +534,18 @@ export function EditorToolbar({
                       : EditTool.CARPET_PICK,
                   )
                 }
-                title="Copy carpet variant + colors from existing tile (P)"
+                title="기존 타일의 카펫 종류와 색 가져오기 (P)"
               >
-                Copy
+                스포이트
               </Button>
             ) : (
               <Button
                 variant={activeTool === EditTool.FURNITURE_PICK ? 'active' : 'ghost'}
                 size="sm"
                 onClick={() => onToolChange(EditTool.FURNITURE_PICK)}
-                title="Copy furniture type from placed item"
+                title="놓인 가구 종류 가져오기"
               >
-                Copy
+                스포이트
               </Button>
             )}
           </div>
@@ -570,7 +569,7 @@ export function EditorToolbar({
                         onToolChange(EditTool.CARPET_PAINT);
                       }
                     }}
-                    title={`Carpet ${variantIdx + 1}`}
+                    title={`카펫 ${variantIdx + 1}`}
                     deps={[variantIdx, carpetColor, carpetAccentColor]}
                     draw={(ctx, w, h) => drawCarpetPreview(ctx, w, h, variantIdx)}
                   />
@@ -583,13 +582,13 @@ export function EditorToolbar({
                 <div className="flex gap-8 ml-2 mb-6 -mt-6">
                   <div className="flex flex-col gap-2">
                     <span className="text-xs uppercase tracking-[0.08em] text-text-muted">
-                      Main
+                      주색
                     </span>
                     <VisualColorPicker value={carpetColor} onChange={onCarpetColorChange} />
                   </div>
                   <div className="flex flex-col gap-2">
                     <span className="text-xs uppercase tracking-[0.08em] text-text-muted">
-                      Accent
+                      강조색
                     </span>
                     <VisualColorPicker
                       value={carpetAccentColor}
@@ -735,11 +734,11 @@ function AreaAddRow({
             handleSubmit();
           }
         }}
-        placeholder="Area name…"
+        placeholder="구역 이름…"
         className="flex-1 text-sm py-2 px-6 bg-bg-dark border-2 border-border rounded-none text-text"
       />
-      <Button variant="default" size="sm" onClick={handleSubmit} title="Add a new Area">
-        Add Area
+      <Button variant="default" size="sm" onClick={handleSubmit} title="새 구역 추가">
+        구역 추가
       </Button>
     </div>
   );
@@ -806,7 +805,7 @@ function AreaCard({
           onChange={(e) => onColorChange(e.target.value)}
           onClick={(e) => e.stopPropagation()}
           className="w-24 h-24 p-0 border-2 border-border bg-transparent cursor-pointer"
-          title="Area color"
+          title="구역 색"
         />
         {renaming ? (
           <input
@@ -833,7 +832,7 @@ function AreaCard({
               setRenaming(true);
             }}
             className="flex-1 text-sm text-text overflow-hidden text-ellipsis whitespace-nowrap"
-            title={`${area.label} — double-click to rename`}
+            title={`${area.label} — 더블클릭해 이름 바꾸기`}
           >
             {area.label}
           </span>
@@ -845,7 +844,7 @@ function AreaCard({
             e?.stopPropagation();
             onRemove();
           }}
-          title="Remove area"
+          title="구역 삭제"
         >
           x
         </Button>
@@ -870,7 +869,7 @@ function AreaCard({
                   e?.stopPropagation();
                   onAreaMappingChange(folder, area.label, 'remove');
                 }}
-                title="Unmap folder"
+                title="폴더 연결 해제"
               >
                 x
               </Button>
@@ -888,9 +887,9 @@ function AreaCard({
             if (availableFolders.length === 0) return;
             setAddFolderOpen((v) => !v);
           }}
-          title={availableFolders.length === 0 ? 'All folders already mapped' : 'Map a folder…'}
+          title={availableFolders.length === 0 ? '모든 폴더가 이미 연결됨' : '폴더 연결…'}
         >
-          Add folder…
+          폴더 추가…
         </Button>
         <Dropdown isOpen={addFolderOpen}>
           {availableFolders.map((f) => (

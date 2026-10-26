@@ -48,7 +48,7 @@ export function ChangelogModal({ isOpen, onClose, currentVersion }: ChangelogMod
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      title={<span className="text-4xl">What's New in v{entry.version}</span>}
+      title={<span className="text-4xl">v{entry.version} 새 소식</span>}
       zIndex={51}
       // Wider minimum than Modal's, still yielding to narrow screens (100% =
       // Modal's sizing wrapper minus its margin padding).
@@ -102,7 +102,7 @@ export function ChangelogModal({ isOpen, onClose, currentVersion }: ChangelogMod
           className="flex-1 py-6 px-10 border-r border-border flex items-center justify-center gap-12 text-lg no-underline cursor-pointer transition-colors duration-200 hover:text-accent-bright"
         >
           <GitHubIcon />
-          View on GitHub
+          GitHub에서 보기
         </a>
         <a
           href={DISCORD_INVITE_URL}
@@ -111,7 +111,7 @@ export function ChangelogModal({ isOpen, onClose, currentVersion }: ChangelogMod
           className="flex-1 py-6 px-10 flex items-center justify-center gap-12 text-lg no-underline cursor-pointer transition-colors duration-200 hover:text-accent-bright"
         >
           <DiscordIcon />
-          Join our Discord!
+          디스코드 참여하기!
         </a>
       </div>
     </Modal>

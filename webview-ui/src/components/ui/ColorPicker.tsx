@@ -71,28 +71,28 @@ export function ColorPicker({
   return (
     <div className="flex flex-col py-8 px-10 bg-bg-dark border-2 border-border rounded-none">
       <ColorSlider
-        label="Hue"
+        label="색상"
         value={value.h}
         min={isColorize ? 0 : -180}
         max={isColorize ? 360 : 180}
         onChange={(v) => handleChange('h', v)}
       />
       <ColorSlider
-        label="Saturation"
+        label="채도"
         value={value.s}
         min={isColorize ? 0 : -100}
         max={100}
         onChange={(v) => handleChange('s', v)}
       />
       <ColorSlider
-        label="Brightness"
+        label="밝기"
         value={value.b}
         min={-100}
         max={100}
         onChange={(v) => handleChange('b', v)}
       />
       <ColorSlider
-        label="Contrast"
+        label="대비"
         value={value.c}
         min={-100}
         max={100}
@@ -108,7 +108,7 @@ export function ColorPicker({
               type="button"
               onClick={() => onChange({ ...value, colorize: !value.colorize || undefined })}
               className="flex items-center gap-8 shrink-0 bg-transparent border-0 p-0 cursor-pointer text-left"
-              title="Toggle colorize mode"
+              title="단색 칠하기 모드 전환"
             >
               <span className="text-sm text-text-muted w-64 shrink-0">Colorize</span>
               <span
@@ -133,10 +133,10 @@ export function ColorPicker({
               variant={copyActive ? 'active' : 'default'}
               size="sm"
               onClick={onCopy}
-              title="Copy color from another item — click one in the office"
+              title="다른 물건의 색 가져오기 — 사무실에서 하나를 클릭하세요"
               className="mt-6 mr-4"
             >
-              Copy
+              스포이트
             </Button>
           )}
           {onReset && (
@@ -144,10 +144,10 @@ export function ColorPicker({
               variant="default"
               size="sm"
               onClick={onReset}
-              title="Reset to default"
+              title="기본값으로"
               className="mt-6"
             >
-              Reset
+              초기화
             </Button>
           )}
         </div>

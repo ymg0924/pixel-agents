@@ -287,7 +287,7 @@ export function MobileAgentBar({
             // A long press must not open the OS callout menu over the drawer.
             onContextMenu={(e) => e.preventDefault()}
             disabled={!canLaunch}
-            title={canLaunch ? 'Launch agent' : (launchUnavailableReason ?? 'Terminal unavailable')}
+            title={canLaunch ? '에이전트 실행' : (launchUnavailableReason ?? '터미널을 쓸 수 없음')}
             className={`flex items-center justify-center shrink-0 px-14 border-2 rounded-none text-2xl leading-none select-none ${
               canLaunch
                 ? 'bg-accent border-accent text-white cursor-pointer active:bg-accent-bright'

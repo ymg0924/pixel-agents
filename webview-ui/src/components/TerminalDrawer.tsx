@@ -85,7 +85,7 @@ export function TerminalDrawer({
           className="absolute top-0 left-0 bottom-0 z-40 cursor-col-resize hover:bg-accent"
           style={{ width: TERMINAL_DRAWER_RESIZE_HANDLE_PX }}
           onMouseDown={onResizeStart}
-          title="Drag to resize"
+          title="끌어서 크기 조절"
         />
 
         {/* Close the panel. Floats over the pane's top-right corner so the
@@ -97,7 +97,7 @@ export function TerminalDrawer({
             size="icon"
             onClick={onClosePanel}
             className="hover:bg-btn-hover"
-            title="Close terminal"
+            title="터미널 닫기"
           >
             {'>'}
           </Button>

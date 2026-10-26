@@ -217,10 +217,10 @@ export function IntroBubble({
   };
 
   const titles = [
-    'Welcome to Pixel Agents!',
-    'Powered by Claude Code',
+    'Pixel Agents에 오신 걸 환영해요!',
+    'Claude Code로 움직여요',
     headline,
-    installFailed ? "Hooks couldn't be installed" : "You're all set!",
+    installFailed ? '훅을 설치하지 못했어요' : '준비 완료!',
   ];
 
   return (
@@ -261,7 +261,7 @@ export function IntroBubble({
         <Button
           variant="ghost"
           size="icon"
-          aria-label="Close"
+          aria-label="닫기"
           className="absolute top-4 right-4"
           onClick={onClose}
         >
@@ -269,7 +269,7 @@ export function IntroBubble({
         </Button>
 
         {/* Step dots: the tour's "1 of 4", drawn as pixels rather than prose. */}
-        <div className="flex gap-4 mb-8" aria-label={`Step ${step + 1} of ${STEP_COUNT}`}>
+        <div className="flex gap-4 mb-8" aria-label={`${STEP_COUNT}단계 중 ${step + 1}단계`}>
           {Array.from({ length: STEP_COUNT }, (_, i) => (
             <div
               key={i}
@@ -283,22 +283,22 @@ export function IntroBubble({
 
         {step === WELCOME_STEP && (
           <p className="text-sm m-0 mb-8">
-            In this office, your AI agents become tiny pixel characters: they type at their desks
-            while they work, wander off when they're done, and speak up when they need you.
+            이 사무실에서는 AI 에이전트가 작은 픽셀 캐릭터가 됩니다. 일할 때는 책상에서 타자를 치고,
+            일이 끝나면 돌아다니며, 도움이 필요하면 말풍선으로 알려 줘요.
           </p>
         )}
 
         {step === CLAUDE_CODE_STEP && (
           <>
             <p className="text-sm m-0 mb-8">
-              The office watches your Claude Code sessions and brings them to life in here. New to
-              Claude Code? Download it first:
+              사무실은 Claude Code 세션을 지켜보며 캐릭터로 살아 움직이게 합니다. Claude Code가
+              처음이라면 먼저 설치하세요:
             </p>
             <div className="text-sm bg-btn-bg border-2 border-border py-4 px-8 mb-8 select-all">
               {CLAUDE_CODE_INSTALL_COMMAND}
             </div>
             <p className="text-sm m-0 mb-8">
-              For more info, visit{' '}
+              자세한 내용:{' '}
               <a
                 href={CLAUDE_CODE_URL}
                 target="_blank"
@@ -322,14 +322,14 @@ export function IntroBubble({
           <>
             {installFailed ? (
               <p className="text-sm m-0 mb-8">
-                Something went wrong writing to your Claude Code settings, so the office will watch
-                your sessions the slower way instead. No worries, everything still works and you can
-                retry activating them any time from Settings.
+                Claude Code 설정 파일에 쓰는 중 문제가 생겨, 사무실은 조금 느린 방식으로 세션을
+                지켜봅니다. 걱정 마세요. 모든 기능은 그대로 동작하고, 언제든 설정에서 다시 켤 수
+                있어요.
               </p>
             ) : null}
             <p className="text-sm m-0 mb-8">
-              Enjoy your new office! Questions, ideas, or pixel art to show off? Come hang out in
-              our Discord.
+              새 사무실을 즐기세요! 질문, 아이디어, 자랑하고 싶은 픽셀 아트가 있다면 디스코드로 놀러
+              오세요.
             </p>
             <p className="text-base text-center m-0 mt-12 mb-12">
               <a
@@ -339,7 +339,7 @@ export function IntroBubble({
                 className="inline-flex items-center gap-8 text-accent-bright hover:text-accent no-underline"
               >
                 <DiscordIcon />
-                Join our Discord!
+                디스코드 참여하기!
               </a>
             </p>
           </>
@@ -358,7 +358,7 @@ export function IntroBubble({
               className={installPending ? 'opacity-[var(--btn-disabled-opacity)]' : ''}
               onClick={back}
             >
-              Back
+              이전
             </Button>
           )}
 
@@ -371,7 +371,7 @@ export function IntroBubble({
                 className={installPending ? 'opacity-[var(--btn-disabled-opacity)]' : ''}
                 onClick={() => choose('never')}
               >
-                Don't Ask Again
+                다시 묻지 않기
               </Button>
               <Button
                 variant={installPending ? 'disabled' : 'default'}
@@ -379,7 +379,7 @@ export function IntroBubble({
                 disabled={installPending}
                 onClick={() => choose('notNow')}
               >
-                Not Now
+                나중에
               </Button>
               <Button
                 variant={installPending ? 'disabled' : 'accent'}
@@ -387,16 +387,16 @@ export function IntroBubble({
                 disabled={installPending}
                 onClick={() => choose('install')}
               >
-                {installPending ? 'Installing...' : 'Install Hooks'}
+                {installPending ? '설치 중...' : '훅 설치'}
               </Button>
             </div>
           ) : step === CLOSING_STEP ? (
             <Button variant="accent" size="sm" onClick={onClose}>
-              Let's Go
+              시작하기
             </Button>
           ) : (
             <Button variant="default" size="sm" onClick={forward}>
-              Continue
+              다음
             </Button>
           )}
         </div>

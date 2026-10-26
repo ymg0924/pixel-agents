@@ -73,8 +73,8 @@ export function SettingsModal({
   const [assetDirDraft, setAssetDirDraft] = useState('');
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="Settings">
-      {/* Open Sessions Folder opens an OS file manager — impossible in the browser. */}
+    <Modal isOpen={isOpen} onClose={onClose} title="설정">
+      {/* 세션 폴더 열기 opens an OS file manager — impossible in the browser. */}
       {!isBrowserRuntime && (
         <MenuItem
           onClick={() => {
@@ -82,7 +82,7 @@ export function SettingsModal({
             onClose();
           }}
         >
-          Open Sessions Folder
+          세션 폴더 열기
         </MenuItem>
       )}
       <MenuItem
@@ -95,7 +95,7 @@ export function SettingsModal({
           onClose();
         }}
       >
-        Export Layout
+        배치 내보내기
       </MenuItem>
       <MenuItem
         onClick={() => {
@@ -108,7 +108,7 @@ export function SettingsModal({
           }
         }}
       >
-        Import Layout
+        배치 불러오기
       </MenuItem>
       {isBrowserRuntime && (
         <input
@@ -133,7 +133,7 @@ export function SettingsModal({
           <input
             type="text"
             value={assetDirDraft}
-            placeholder="Absolute asset directory path"
+            placeholder="에셋 폴더 전체 경로"
             onChange={(e) => setAssetDirDraft(e.target.value)}
             className="flex-1 min-w-0 text-xs py-2 px-4 bg-bg border-2 border-border rounded-none text-text"
           />
@@ -148,7 +148,7 @@ export function SettingsModal({
             }}
             className="shrink-0"
           >
-            Add
+            추가
           </Button>
         </div>
       ) : (
@@ -158,7 +158,7 @@ export function SettingsModal({
             onClose();
           }}
         >
-          Add Asset Directory
+          에셋 폴더 추가
         </MenuItem>
       )}
       {externalAssetDirectories.map((dir) => (
@@ -180,7 +180,7 @@ export function SettingsModal({
         </div>
       ))}
       <Checkbox
-        label="Sound Notifications"
+        label="알림음"
         checked={soundLocal}
         onChange={() => {
           const newVal = !isSoundEnabled();
@@ -190,17 +190,13 @@ export function SettingsModal({
         }}
       />
       <Checkbox
-        label="Watch All Sessions"
+        label="모든 세션 보기"
         checked={watchAllSessions}
         onChange={onToggleWatchAllSessions}
       />
+      <Checkbox label="실시간 감지 (훅)" checked={hooksInstalled} onChange={onToggleHooksEnabled} />
       <Checkbox
-        label="Instant Detection (Hooks)"
-        checked={hooksInstalled}
-        onChange={onToggleHooksEnabled}
-      />
-      <Checkbox
-        label="Always Show Labels"
+        label="이름표 항상 표시"
         checked={alwaysShowOverlay}
         onChange={onToggleAlwaysShowOverlay}
       />
@@ -208,20 +204,20 @@ export function SettingsModal({
           Standalone has no terminals at all, so nothing there would ever ghost. */}
       {!isBrowserRuntime && (
         <Checkbox
-          label="Display Headless as Ghosts"
+          label="터미널 없는 에이전트를 유령으로 표시"
           checked={ghostHeadlessAgents}
           onChange={onToggleGhostHeadlessAgents}
         />
       )}
       {showAreasAvailable && (
-        <Checkbox label="Show Areas" checked={showAreas} onChange={onToggleShowAreas} />
+        <Checkbox label="구역 표시" checked={showAreas} onChange={onToggleShowAreas} />
       )}
       {/* Permission posture, set once instead of per launch: while on, the host
           adds the CLI's skip-permissions flag to every agent it launches. */}
       <Checkbox
         label={
           <span className="flex items-center gap-4">
-            Skip Permissions
+            권한 확인 건너뛰기
             {/* Nudged down: the pixel font's glyphs sit low in their line box,
                 so a centered icon reads as floating high. */}
             <span className="material-symbols-sharp text-[12px] translate-y-2" aria-hidden="true">
@@ -236,11 +232,11 @@ export function SettingsModal({
           host contributes: VS Code its workspace folders, standalone the
           directory the server was started from. */}
       <Checkbox
-        label={isBrowserRuntime ? 'Show Start Directory' : 'Show Workspace Folders'}
+        label={isBrowserRuntime ? '시작 폴더 표시' : '작업 폴더 표시'}
         checked={showHostDirectories}
         onChange={onToggleShowHostDirectories}
       />
-      <Checkbox label="Debug View" checked={isDebugMode} onChange={onToggleDebugMode} />
+      <Checkbox label="디버그 보기" checked={isDebugMode} onChange={onToggleDebugMode} />
     </Modal>
   );
 }

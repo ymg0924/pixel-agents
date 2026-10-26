@@ -110,9 +110,9 @@ export function MobileShell({
               size="sm"
               className="border-border! shadow-pixel"
               onClick={shell.toggleView}
-              title={shell.view === 'office' ? 'Show terminal' : 'Show office'}
+              title={shell.view === 'office' ? '터미널 보기' : '사무실 보기'}
             >
-              {shell.view === 'office' ? '>_' : 'Office'}
+              {shell.view === 'office' ? '>_' : '사무실'}
             </Button>
           </div>
         )}

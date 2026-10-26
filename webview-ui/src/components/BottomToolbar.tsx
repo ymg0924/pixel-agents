@@ -75,9 +75,9 @@ export function BottomToolbar({
         <Button
           variant="disabled"
           disabled
-          title={terminalUnavailableReason ?? 'Terminal unavailable on this server.'}
+          title={terminalUnavailableReason ?? '이 서버에서는 터미널을 쓸 수 없습니다.'}
         >
-          + Agent
+          + 에이전트
         </Button>
       )}
       {canLaunch && (
@@ -94,7 +94,7 @@ export function BottomToolbar({
             onClick={handleAgentClick}
             className={isDrawerOpen ? 'bg-accent-bright' : 'bg-accent hover:bg-accent-bright'}
           >
-            + Agent
+            + 에이전트
           </Button>
           <LaunchDrawer
             isOpen={isDrawerOpen}
@@ -114,16 +114,16 @@ export function BottomToolbar({
       <Button
         variant={isEditMode ? 'active' : 'default'}
         onClick={onToggleEditMode}
-        title="Edit office layout"
+        title="사무실 배치 편집"
       >
-        Layout
+        배치
       </Button>
       <Button
         variant={isSettingsOpen ? 'active' : 'default'}
         onClick={onToggleSettings}
-        title="Settings"
+        title="설정"
       >
-        Settings
+        설정
       </Button>
     </div>
   );

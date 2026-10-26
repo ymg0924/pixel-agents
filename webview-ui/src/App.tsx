@@ -402,7 +402,7 @@ function App() {
       // bypassing the layoutLoaded message whose dirty guard would skip it.
       if (
         isEditDirty() &&
-        !window.confirm('Replace the current layout? Unsaved edits will be lost.')
+        !window.confirm('현재 레이아웃을 바꿀까요? 저장하지 않은 편집 내용은 사라집니다.')
       ) {
         return;
       }
@@ -417,7 +417,7 @@ function App() {
             !Array.isArray(imported.tiles) ||
             !Array.isArray(imported.furniture)
           ) {
-            window.alert('Invalid layout file.');
+            window.alert('올바른 레이아웃 파일이 아닙니다.');
             return;
           }
           const migrated = migrateLayoutColors(imported as unknown as OfficeLayout);
@@ -429,7 +429,7 @@ function App() {
           });
           editor.markClean();
         } catch {
-          window.alert('Failed to read or parse layout file.');
+          window.alert('레이아웃 파일을 읽지 못했습니다.');
         }
       };
       reader.readAsText(file);
@@ -513,7 +513,7 @@ function App() {
               className="absolute left-1/2 -translate-x-1/2 z-11 bg-accent-bright text-white text-sm py-3 px-8 rounded-none border-2 border-accent shadow-pixel pointer-events-none whitespace-nowrap"
               style={{ top: editor.isDirty ? 64 : 8 }}
             >
-              Rotate (R)
+              회전 (R)
             </div>
           )}
 
@@ -599,7 +599,7 @@ function App() {
           Detection Active" before anything is installed would be a lie. */}
       {hooksEnabled && claudeHooksInstalled && !hooksInfoShown && !hooksTooltipDismissed && (
         <Tooltip
-          title="Instant Detection Active"
+          title="실시간 감지 켜짐"
           position="top-right"
           onDismiss={() => {
             setHooksTooltipDismissed(true);
@@ -607,7 +607,7 @@ function App() {
           }}
         >
           <span className="text-sm text-text leading-none">
-            Your agents now respond in real-time.{' '}
+            이제 에이전트가 실시간으로 반응합니다.{' '}
             <span
               className="text-accent cursor-pointer underline"
               onClick={() => {
@@ -616,7 +616,7 @@ function App() {
                 transport.send({ type: 'setHooksInfoShown' });
               }}
             >
-              View more
+              자세히 보기
             </span>
           </span>
         </Tooltip>
@@ -624,7 +624,7 @@ function App() {
 
       {officeReadOnly && (
         <div className="absolute mobile-safe-top left-1/2 -translate-x-1/2 z-10 text-sm text-text-muted pointer-events-none select-none whitespace-nowrap">
-          View only
+          보기 전용
         </div>
       )}
 
@@ -654,7 +654,7 @@ function App() {
             className="border-border! shadow-pixel"
             onClick={() => setIsSettingsOpen((v) => !v)}
           >
-            Settings
+            설정
           </Button>
         </div>
       )}
@@ -768,31 +768,29 @@ function App() {
       <Modal
         isOpen={isHooksInfoOpen}
         onClose={() => setIsHooksInfoOpen(false)}
-        title="Instant Detection is ON"
+        title="실시간 감지가 켜졌습니다"
         zIndex={52}
       >
         <div className="text-base text-text px-10" style={{ lineHeight: 1.4 }}>
-          <p className="mb-8">Your Pixel Agents office now reacts in real-time:</p>
+          <p className="mb-8">이제 Pixel Agents 사무실이 실시간으로 반응합니다:</p>
           <ul className="mb-8 pl-18 list-disc m-0">
-            <li className="text-sm mb-2">Permission prompts appear instantly</li>
-            <li className="text-sm mb-2">Turn completions detected the moment they happen</li>
-            <li className="text-sm mb-2">Sound notifications play immediately</li>
+            <li className="text-sm mb-2">승인 요청이 즉시 표시됩니다</li>
+            <li className="text-sm mb-2">작업이 끝나는 순간 바로 감지합니다</li>
+            <li className="text-sm mb-2">알림음이 바로 울립니다</li>
           </ul>
           <p className="mb-12 text-text-muted">
-            This works through Claude Code Hooks, small event listeners that notify Pixel Agents
-            whenever something happens in your Claude sessions.
+            Claude Code 훅(Hook)을 통해 동작합니다. Claude 세션에서 무슨 일이 생길 때마다 Pixel
+            Agents에 알려 주는 작은 이벤트 수신기입니다.
           </p>
           <div className="text-center">
             <button
               onClick={() => setIsHooksInfoOpen(false)}
               className="py-4 px-20 text-lg bg-accent text-white border-2 border-accent rounded-none cursor-pointer shadow-pixel"
             >
-              Got it
+              확인
             </button>
           </div>
-          <p className="mt-8 text-xs text-text-muted text-center">
-            To disable, go to Settings {'>'} Instant Detection
-          </p>
+          <p className="mt-8 text-xs text-text-muted text-center">끄려면 설정 {'>'} 실시간 감지</p>
         </div>
       </Modal>
       {/* Rendered at the composition root, not inside a launch surface: the
