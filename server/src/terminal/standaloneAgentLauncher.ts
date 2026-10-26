@@ -80,12 +80,15 @@ export function launchStandaloneAgent(
 
   const id = store.nextAgentId.current++;
 
+  // Windows: an npm-installed CLI is a `.cmd` shim that ConPTY cannot spawn by
+  // bare name, so run it through cmd.exe (which resolves PATHEXT).
+  const viaCmd = process.platform === 'win32' && !path.extname(launch.command);
   let session;
   try {
     session = ptyManager.create({
       agentId: id,
-      command: launch.command,
-      args: launch.args,
+      command: viaCmd ? 'cmd.exe' : launch.command,
+      args: viaCmd ? ['/d', '/c', launch.command, ...launch.args] : launch.args,
       cwd,
       env: launch.env,
       cols: options.cols,
