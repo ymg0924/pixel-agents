@@ -832,6 +832,11 @@ export function scanForBackgroundAgentFiles(
     // work whatever the sidecar says: watch them, never seat them.
     const isForeground = !lead.backgroundAgentToolIds.has(entry.toolUseId);
 
+    // A named spawn whose launch result hasn't been parsed yet (sibling spawns
+    // in one turn land before their results) is not known to be foreground:
+    // leave it for the rescan its own launch result triggers.
+    if (entry.name && isForeground) continue;
+
     if (!entry.name || isForeground) {
       // Unnamed spawn = Sub-agent: keep the Subtask character, watch the
       // transcript in the shadow store for live activity. No agentCreated, no

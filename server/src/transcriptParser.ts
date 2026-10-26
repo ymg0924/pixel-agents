@@ -727,15 +727,22 @@ function isAsyncAgentResult(block: Record<string, unknown>): boolean {
         typeof item === 'object' &&
         item !== null &&
         typeof (item as Record<string, unknown>).text === 'string' &&
-        ((item as Record<string, unknown>).text as string).startsWith(
-          'Async agent launched successfully.',
-        )
+        isAsyncLaunchText((item as Record<string, unknown>).text as string)
       ) {
         return true;
       }
     }
   } else if (typeof content === 'string') {
-    return content.startsWith('Async agent launched successfully.');
+    return isAsyncLaunchText(content);
   }
   return false;
+}
+
+/** Background launch results: "Async agent launched successfully." (older CLIs)
+ *  or "Spawned successfully." (in-process teammates on newer CLIs). */
+function isAsyncLaunchText(text: string): boolean {
+  return (
+    text.startsWith('Async agent launched successfully.') ||
+    text.startsWith('Spawned successfully.')
+  );
 }

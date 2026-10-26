@@ -46,6 +46,38 @@ function parseSidecarMeta(
   }
 }
 
+/** Newer CLIs (in-process teammates) omit `toolUseId` from the sidecar. The
+ *  spawn is still identifiable: the transcript is `agent-<agentId>.jsonl` and
+ *  the lead's spawn tool_result carries `agent_id: <agentId>`. Resolved ids are
+ *  cached per transcript path. */
+const resolvedSpawnToolIds = new Map<string, string>();
+function resolveSpawnToolUseId(
+  jsonlPath: string,
+  projectDir: string,
+  leadSessionId: string,
+): string | undefined {
+  const cached = resolvedSpawnToolIds.get(jsonlPath);
+  if (cached) return cached;
+  const match = /^agent-(.+)\.jsonl$/.exec(path.basename(jsonlPath));
+  if (!match) return undefined;
+  let lead: string;
+  try {
+    lead = fs.readFileSync(path.join(projectDir, `${leadSessionId}.jsonl`), 'utf-8');
+  } catch {
+    return undefined;
+  }
+  const needle = `agent_id: ${match[1]}`;
+  for (const line of lead.split('\n')) {
+    if (!line.includes(needle)) continue;
+    const toolUseId = /"tool_use_id":"([^"]+)"/.exec(line)?.[1];
+    if (toolUseId) {
+      resolvedSpawnToolIds.set(jsonlPath, toolUseId);
+      return toolUseId;
+    }
+  }
+  return undefined;
+}
+
 /** Claude stores teammate JSONL files at `<projectDir>/<leadSessionId>/subagents/`. */
 function teammateDir(projectDir: string, leadSessionId: string): string {
   return path.join(projectDir, leadSessionId, 'subagents');
@@ -190,7 +222,7 @@ export const claudeTeamProvider: TeamProvider = {
         result.push({
           jsonlPath,
           teammateName: meta.agentType,
-          toolUseId: meta.toolUseId,
+          toolUseId: meta.toolUseId ?? resolveSpawnToolUseId(jsonlPath, projectDir, leadSessionId),
           description: meta.description,
           name: meta.name,
         });
